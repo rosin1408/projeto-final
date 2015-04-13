@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:composition template="/WEB-INF/template/template.xhtml">
+	<ui:define name="header" />
+	<ui:define name="content">
+		
+		<h:form id="cadastro">
+		<p:messages autoUpdate="true" />
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Código: " for="codigo" />
+				<h:panelGroup>
+					<p:inputText id="codigo" value="#{pagamentoController.pagamento.codigo}" readonly="true"/>
+					<p:inputText id="codigoHidden" value="#{pagamentoController.pagamento.codigo}" type="hidden" />
+				</h:panelGroup>
+				
+				<p:outputLabel value="Aluno: " for="aluno" />
+				<p:autoComplete id="aluno" 
+								value="#{pagamentoController.pagamento.aluno}"
+								completeMethod="#{pagamentoController.atualizar}"
+								converter="#{alunoConverter}"
+								forceSelection="true"
+								minQueryLength="2"
+								var="al"
+								itemLabel="#{al.nome}"
+								itemValue="#{al.codigo}"
+								required="true"
+								requiredMessage="Aluno obrigatório"/>
+
+				<p:outputLabel value="Data: " for="data" />
+				<p:calendar id="data" value="#{pagamentoController.pagamento.data}" required="true" requiredMessage="Data obrigatório" pattern="dd/MM/yyyy" />
+				
+				<p:outputLabel value="Valor: " for="valor" />
+				<pe:inputNumber id="valor" value="#{pagamentoController.pagamento.valor}" symbol="R$ " required="true" requiredMessage="Valor obrigatório"/>
+			</h:panelGrid>
+			
+			<p:commandButton value="Salvar" action="#{pagamentoController.salvar}" update="@form"  icon="ui-icon-plusthick"/>
+			<p:button value="Listar" outcome="index.jsf" />
+			<p:commandButton value="Novo" action="#{pagamentoController.novo}" update="@form" icon="ui-icon-document" process="@this"/>
+	</h:form>
+		
+	</ui:define>
+	<ui:define name="footer" />
+</ui:composition>
+</html>

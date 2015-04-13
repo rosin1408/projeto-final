@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:composition template="/WEB-INF/template/template.xhtml">
+	<ui:define name="header" />
+	<ui:define name="content">
+		
+		<h:form id="cadastro">
+		<p:messages autoUpdate="true" />
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Código: " for="codigo" />
+				<h:panelGroup>
+					<p:inputText id="codigo" value="#{alunoController.aluno.codigo}" readonly="true"/>
+					<p:inputText id="codigoHidden" value="#{alunoController.aluno.codigo}" type="hidden" />
+				</h:panelGroup>
+				
+				<p:outputLabel value="Nome: " for="nome"/>
+				<p:inputText id="nome" value="#{alunoController.aluno.nome}" required="true" requiredMessage="Nome obrigatório"/>
+				
+				<p:outputLabel value="CPF: " for="cpf"/>
+				<p:inputMask mask="999.999.999-99" id="cpf" value="#{alunoController.aluno.cpf}" required="true" requiredMessage="CPF obrigatório"/>
+				
+				<p:outputLabel value="Email: " for="email"/>
+				<p:inputText id="email" value="#{alunoController.aluno.email}" />
+
+				<p:outputLabel value="Data Nascimento: " for="dataNascimento" />
+				<p:calendar id="dataNascimento" value="#{alunoController.aluno.dataNascimento}" navigator="true" required="true" requiredMessage="Data Nascimento obrigatório" pattern="dd/MM/yyyy" />
+				
+				<p:outputLabel value="Situação Física: " for="situacao"/>
+				<p:selectOneMenu id="situacao"
+								 value="#{alunoController.aluno.situacao}"
+				  				 converter="#{situacaoConverter}"
+				  				 var="i">
+					<f:selectItems value="#{alunoController.situacoes}"
+					 				var="situ" itemLabel="#{situ.nome}" itemValue="#{situ}"/>
+					<p:column>
+						<p:outputLabel value="#{i.nome}"/>
+					</p:column>
+				</p:selectOneMenu>
+				
+			</h:panelGrid>
+			
+			<p:commandButton value="Salvar" action="#{alunoController.salvar}" update="@form"  icon="ui-icon-plusthick"/>
+			<p:button value="Listar" outcome="index.jsf" />
+			<p:commandButton value="Novo" action="#{alunoController.novo}" update="@form" icon="ui-icon-document" process="@this"/>
+	</h:form>
+		
+	</ui:define>
+	<ui:define name="footer" />
+</ui:composition>
+</html>

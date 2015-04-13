@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Login</title>
+</h:head>
+<h:body>
+	<h:form id="loginForm" prependId="false">
+		<p:panel header="Login">
+			<p:messages globalOnly="true" />
+			<h:panelGroup id="campos">
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Usuário: " />
+					<h:panelGroup>
+						<p:inputText id="j_username" required="true" />
+						<p:message for="j_username"/>
+					</h:panelGroup>
+					
+					<h:outputLabel value="Senha: " />
+					<h:panelGroup>
+						<h:inputSecret id="j_password" required="true" />
+						<p:message for="j_password"/>
+					</h:panelGroup>
+				</h:panelGrid>
+			</h:panelGroup>
+			<p:commandButton value="Acessar" action="#{loginMB.doLogin()}" ajax="false"/>
+			<p:commandLink value="Novo Usuario" action="usuarioForm.xhtml" ajax="false" style="padding-left: 10px;"/>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>
+
+
+

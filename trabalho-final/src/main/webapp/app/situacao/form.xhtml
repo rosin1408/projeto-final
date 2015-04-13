@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/template/template.xhtml">
+	<ui:define name="header" />
+	<ui:define name="content">
+		
+		<h:form id="cadastro">
+			<p:messages autoUpdate="true" />
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Código: " for="codigo" />
+				<h:panelGroup>
+					<p:inputText id="codigo" value="#{situacaoController.situacao.codigo}" readonly="true"/>
+					<p:inputText id="codigoHidden" value="#{situacaoController.situacao.codigo}" type="hidden" />
+				</h:panelGroup>
+				
+				<p:outputLabel value="Nome: " for="nome" />
+				<p:inputText id="nome" value="#{situacaoController.situacao.nome}" required="true" requiredMessage="Nome obrigatório"/>
+
+				<p:outputLabel value="Cor: " for="cor" />
+				<p:colorPicker id="cor" value="#{situacaoController.situacao.cor}" required="true" requiredMessage="Cor obrigatório"/>
+
+			</h:panelGrid>
+			<p:commandButton value="Salvar" action="#{situacaoController.salvar}" update="@form"  icon="ui-icon-plusthick"/>
+			<p:button value="Listar" outcome="index.jsf" />
+			<p:commandButton value="Novo" action="#{situacaoController.novo}" update="@form" icon="ui-icon-document" process="@this"/>
+	</h:form>
+		
+	</ui:define>
+	<ui:define name="footer" />
+</ui:composition>
+</html>
